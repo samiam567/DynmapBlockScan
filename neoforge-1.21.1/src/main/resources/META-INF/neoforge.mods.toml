@@ -1,0 +1,27 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+issueTrackerURL="https://github.com/webbukkit/DynmapBlockScan/issues"
+license="Apache Public License v2"
+
+[[mods]]
+modId="dynmapblockscan"
+version="${version}"
+displayName="DynmapBlockScan"
+authors="mikeprimm"
+description='''
+Generate block render definitions for Dynmap
+'''
+
+[[dependencies.dynmapblockscan]]
+    modId="neoforge"
+    type="required"
+    versionRange="[21.1,)"
+    ordering="NONE"
+    side="SERVER"
+
+[[dependencies.dynmapblockscan]]
+    modId="minecraft"
+    type="required"
+    versionRange="[1.21.1,1.22)"
+    ordering="NONE"
+    side="SERVER"
