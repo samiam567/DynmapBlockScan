@@ -1,0 +1,75 @@
+plugins {
+    id 'net.neoforged.moddev' version '1.0.17'
+}
+
+apply plugin: 'eclipse'
+
+eclipse {
+    project {
+        name = "${parent.name}-neoforge-1.21.1"
+    }
+}
+
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = JavaLanguageVersion.of(21) // Need this here so eclipse task generates correctly.
+
+println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
+
+ext.buildNumber = System.getenv().BUILD_NUMBER ?: "Dev"
+
+neoForge {
+    version = '21.1.251'
+
+    runs {
+        server {
+            server()
+        }
+    }
+
+    mods {
+        dynmapblockscan {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+project.archivesBaseName = "${parent.name}-neoforge-1.21.1"
+
+dependencies {
+	compileOnly "us.dynmap:DynmapCoreAPI:${parent.version}"
+	implementation project(path: ":core")
+}
+
+processResources
+{
+    filesMatching('META-INF/neoforge.mods.toml') {
+        // replace version and mcversion
+        expand(
+        	version: project.version + '-' + project.ext.buildNumber,
+        	mcversion: "1.21.1"
+    	)
+    }
+}
+
+jar {
+    from project(':core').sourceSets.main.output
+}
+
+shadowJar {
+    dependencies {
+        include(dependency(':core'))
+        exclude(dependency("us.dynmap:DynmapCoreAPI"))
+        exclude("META-INF/maven/**")
+        exclude("META-INF/services/**")
+        exclude("com/electronwill/**")
+    }
+    archiveBaseName = "${parent.name}"
+    archiveClassifier = "neoforge-1.21.1"
+    destinationDirectory = file '../target'
+}
+
+shadowJar.doLast {
+    task ->
+        ant.checksum file: task.archivePath
+}
+
+build.dependsOn(shadowJar)

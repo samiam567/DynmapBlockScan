@@ -14,6 +14,13 @@ sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = co
 dependencies {
 	compileOnly 'com.google.code.gson:gson:2.8.0'
 	compileOnly "us.dynmap:DynmapCoreAPI:${parent.version}"
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+	testImplementation 'com.google.code.gson:gson:2.8.0'
+	testImplementation "us.dynmap:DynmapCoreAPI:${parent.version}"
+}
+
+test {
+	useJUnitPlatform()
 }
 
 jar {

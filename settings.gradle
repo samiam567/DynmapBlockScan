@@ -23,6 +23,7 @@ include ':forge-1.17.1'
 include ':forge-1.16.5'
 include ':forge-1.15.2'
 include ':forge-1.14.4'
+include ':neoforge-1.21.1'
 
 
 project(':core').projectDir = "$rootDir/core" as File
@@ -39,4 +40,5 @@ project(':forge-1.17.1').projectDir = "$rootDir/forge-1.17.1" as File
 project(':forge-1.16.5').projectDir = "$rootDir/forge-1.16.5" as File
 project(':forge-1.15.2').projectDir = "$rootDir/forge-1.15.2" as File
 project(':forge-1.14.4').projectDir = "$rootDir/forge-1.14.4" as File
+project(':neoforge-1.21.1').projectDir = "$rootDir/neoforge-1.21.1" as File
 

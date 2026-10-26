@@ -19,6 +19,7 @@ plugins {
 
 allprojects  {
   repositories {
+     mavenLocal()
      maven { url 'https://libraries.minecraft.net/' }
      maven { url "https://oss.sonatype.org/content/repositories/releases" }
      maven { url "https://repo.mikeprimm.com" }
