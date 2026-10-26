@@ -1069,8 +1069,11 @@ public abstract class AbstractBlockScanBase {
         		mod.parentModel = models.get(modid);	// Look up: see if already loaded
         		
         		if (mod.parentModel == null) {
-					String[] tok = modid.split(":");
-					mod.parentModel = loadBlockModelFile(tok[0], tok[1]);
+					int ci = modid.indexOf(':');
+					String ns = (ci >= 0) ? modid.substring(0, ci) : "minecraft";
+					String rp = (ci >= 0) ? modid.substring(ci + 1) : modid;
+					if (ns.isEmpty()) ns = "minecraft";
+					mod.parentModel = loadBlockModelFile(ns, rp);
 					models.put(modid, mod.parentModel);
 					modelToResolve.push(modid);
         		}
